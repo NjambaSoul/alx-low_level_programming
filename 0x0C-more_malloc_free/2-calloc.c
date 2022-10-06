@@ -2,52 +2,43 @@
 #include <stdlib.h>
 
 /**
-* _strlen - find length of a string
-* @s: string
-* Return: int
+* *_memset - fills memory with a constant byte.
+* @s: pointer to put the constant
+* @b: constant
+* @n: max bytes to use
+* Return: s
 */
 
-unsigned int _strlen(char *s)
+char *_memset(char *s, char b, unsigned int n)
 {
-unsigned int size = 0;
-for (; s[size] != '\0'; size++)
-;
-return (size);
+char *ptr = s;
+
+while (n--)
+*s++ = b;
+
+return (ptr);
 }
 
 /**
-* *string_nconcat - concatenates two strings
-* @s1: string 1
-* @s2: string 2
-* @n: first bytes of s2 to be used
-* Return: pointer or NULL
+* *_calloc - allocates memory for an array, using malloc
+* @nmemb: array length
+* @size: size of each element
+* Return: pointer
 */
 
-char *string_nconcat(char *s1, char *s2, unsigned int n)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-unsigned int i, j;
-char *m;
+void *m;
 
-if (s1 == NULL)
-s1 = "";
-if (s2 == NULL)
-s2 = "";
+if (size == 0 || nmemb == 0)
+return (NULL);
 
-if (n < _strlen(s2))
-m = malloc(_strlen(s1) + n * sizeof(char) + 1);
-else
-m = malloc(_strlen(s1) + _strlen(s2) + 1);
+m = malloc(nmemb * size);
 
 if (m == 0)
 return (NULL);
 
-for (i = 0; s1[i] != '\0'; i++)
-m[i] = s1[i];
-
-for (j = 0; s2[j] != '\0' && j < n; i++, j++)
-m[i] = s2[j];
-
-m[i] = '\0';
+_memset(m, 0, nmemb * size);
 
 return (m);
 }
